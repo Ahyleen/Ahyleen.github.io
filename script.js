@@ -7,11 +7,35 @@ function h(evt) {
   const song = new Audio(songs[index]); // create a new audio element
   document.querySelector('.before').remove();
   document.querySelector('.after').style.display = 'block';
+
+  function fadeOut(audio) {
+    if (audio.volume > 0) {
+      audio.volume -= 0.1;
+      setTimeout(function() {
+        fadeOut(audio);
+      }, 100);
+    } else {
+      audio.pause();
+    }
+  }
+
+  function fadeIn(audio) {
+    if (audio.volume < 1) {
+      audio.volume += 0.1;
+      setTimeout(function() {
+        fadeIn(audio);
+      }, 100);
+    } else {
+      audio.play();
+    }
+  }
+
   song.addEventListener('ended', function() {
     // play another random .mp3 file when the current audio ends
     const nextIndex = Math.floor(Math.random() * songs.length); // generate a new random index
     song.src = songs[nextIndex]; // set the src attribute to the new .mp3 file
-    song.play(); // play the audio
+    fadeOut(song); // fade out the current audio
+    fadeIn(song); // fade in the next audio
   });
   song.play();
 }
