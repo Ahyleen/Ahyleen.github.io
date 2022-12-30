@@ -1,10 +1,19 @@
+const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song4.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
+const audioElements = []; // array to store audio elements
+
+for (const song of songs) {
+  // create a new audio element for each song
+  const audio = new Audio(song);
+  audio.preload = 'auto'; // set the preload attribute to 'auto'
+  audioElements.push(audio);
+}
+
 function h(evt) {
   evt.preventDefault();
   window.removeEventListener('touchstart', h, null);
   window.removeEventListener('click', h, null);
-  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song4.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
-  const index = Math.floor(Math.random() * songs.length); // generate a random index
-  let song = new Audio(songs[index]); // create a new audio element
+  const index = Math.floor(Math.random() * audioElements.length); // generate a random index
+  let audio = audioElements[index]; // get the audio element at the random index
   document.querySelector('.before').remove();
   document.querySelector('.after').style.display = 'block';
 
@@ -30,14 +39,14 @@ function h(evt) {
     }
   }
 
-  song.addEventListener('ended', function() {
+  audio.addEventListener('ended', function() {
     // play another random .mp3 file when the current audio ends
-    const nextIndex = Math.floor(Math.random() * songs.length); // generate a new random index
-    fadeOut(song); // fade out the current audio
-    song = new Audio(songs[nextIndex]); // create a new audio element
-    fadeIn(song); // fade in the next audio
+    const nextIndex = Math.floor(Math.random() * audioElements.length); // generate a new random index
+    fadeOut(audio); // fade out the current audio
+    audio = audioElements[nextIndex]; // get the audio element at the random index
+    fadeIn(audio); // fade in the next audio
   });
-  song.play();
+  audio.play();
 }
 window.addEventListener('touchstart', h);
 window.addEventListener('click', h);
