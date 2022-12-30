@@ -2,11 +2,11 @@ function h(evt) {
   evt.preventDefault();
   window.removeEventListener('touchstart', h, null);
   window.removeEventListener('click', h, null);
-  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song34.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
-  const index = Math.floor(Math.random() * songs.length); // generate a random index
-  let song = new Audio(); // create a new audio element
-  song.src = songs[index]; // set the src attribute
-  song.load(); // load the audio file
+  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song4.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
+  let currentIndex = Math.floor(Math.random() * songs.length);
+  let song = new Audio();
+  song.src = songs[currentIndex];
+  song.load();
   document.querySelector('.before').remove();
   document.querySelector('.after').style.display = 'block';
 
@@ -33,22 +33,20 @@ function h(evt) {
   }
 
   function playNext() {
-    // play another random .mp3 file when the current audio ends
-    const nextIndex = Math.floor(Math.random() * songs.length); // generate a new random index
-    fadeOut(song); // fade out the current audio
-    song = new Audio(); // create a new audio element
-    song.src = songs[nextIndex]; // set the src attribute
-    song.load(); // load the audio file
-    fadeIn(song); // fade in the next audio
+    let nextIndex = Math.floor(Math.random() * songs.length);
+    while (nextIndex === currentIndex) {
+      nextIndex = Math.floor(Math.random() * songs.length);
+    }
+    currentIndex = nextIndex;
+    fadeOut(song);
+    song = new Audio();
+    song.src = songs[currentIndex];
+    song.load();
+    fadeIn(song);
   }
 
-  // attach event listeners to the audio element
   song.addEventListener('ended', playNext);
   song.addEventListener('error', playNext);
 
-  // fade in the audio when it starts
   song.volume = 0;
-  fadeIn(song);
-}
-window.addEventListener('touchstart', h);
-window.addEventListener('click', h);
+ 
