@@ -12,8 +12,10 @@ function h(evt) {
 const links = document.querySelectorAll('a');
 for (let link of links) {
   link.addEventListener('click', function(event) {
-    event.preventDefault();
-    window.location = this.href;
+    if (this.href.startsWith(window.location.origin)) {
+      event.preventDefault();
+      window.location = this.href;
+    }
   });
 }
 
