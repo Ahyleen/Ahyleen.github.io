@@ -12,12 +12,11 @@ function h(evt) {
 const links = document.querySelectorAll('a');
 for (let link of links) {
   link.addEventListener('click', function(event) {
-    if (this.href.startsWith(window.location.origin)) {
-      event.preventDefault();
-      window.location = this.href;
-    }
+    event.preventDefault();
+    window.open(this.href, '_blank');
   });
 }
+
 
 window.addEventListener('touchstart', h);
 window.addEventListener('click', h);
