@@ -18,3 +18,4 @@ for (let link of links) {
 }
 
 window.addEventListener('touchstart', h);
+window.addEventListener('click', h);
