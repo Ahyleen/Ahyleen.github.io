@@ -2,7 +2,7 @@ function h(evt) {
   evt.preventDefault();
   window.removeEventListener('touchstart', h, null);
   window.removeEventListener('click', h, null);
-  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song4.mp3', 'song5.mp3', 'song6.mp3']; // list of .mp3 files in the site root folder
+  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song4.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
   const index = Math.floor(Math.random() * songs.length); // generate a random index
   const song = new Audio(songs[index]); // create a new audio element
   document.querySelector('.before').remove();
