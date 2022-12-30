@@ -2,10 +2,11 @@ function h(evt) {
   evt.preventDefault();
   window.removeEventListener('touchstart', h, null);
   window.removeEventListener('click', h, null);
-  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song4.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
+  const songs = ['song1.mp3', 'song2.mp3', 'song3.mp3', 'song34.mp3', 'song5.mp3', 'song6.mp3', 'song7.mp3']; // list of .mp3 files in the site root folder
   const index = Math.floor(Math.random() * songs.length); // generate a random index
   let song = new Audio(); // create a new audio element
   song.src = songs[index]; // set the src attribute
+  song.load(); // load the audio file
   document.querySelector('.before').remove();
   document.querySelector('.after').style.display = 'block';
 
@@ -37,6 +38,7 @@ function h(evt) {
     fadeOut(song); // fade out the current audio
     song = new Audio(); // create a new audio element
     song.src = songs[nextIndex]; // set the src attribute
+    song.load(); // load the audio file
     fadeIn(song); // fade in the next audio
   }
 
